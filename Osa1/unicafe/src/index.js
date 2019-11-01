@@ -10,9 +10,8 @@ const GetPositivePercentage = ({good}, {sum}) => {
 }
 
 const Statistic = (props) => {
-    console.log(props.value)
     return (
-        <p>{props.text}: {props.value}</p>
+        <tr><td>{props.text}</td><td>{props.value}</td></tr>
     )
 }
 
@@ -22,12 +21,16 @@ const Statistics = ({good}, {neutral}, {bad}) => {
         return (
             <div>
                 <h1>Statistics</h1>
-                <Statistic text="Good" value={good}/>
-                <Statistic text="Neutral" value={neutral}/>
-                <Statistic text="Bad" value={bad}/>
-                <Statistic text="All" value={sum}/>
-                <Statistic text="Average" value={GetAverage({good}, {bad}, {sum})}/>
-                <Statistic text="Positive" value={GetPositivePercentage({good}, {sum})}/>
+                <table>
+                    <tbody>
+                        <Statistic text="Good" value={good}/>
+                        <Statistic text="Neutral" value={neutral}/>
+                        <Statistic text="Bad" value={bad}/>
+                        <Statistic text="All" value={sum}/>
+                        <Statistic text="Average" value={GetAverage({good}, {bad}, {sum})}/>
+                        <Statistic text="Positive" value={GetPositivePercentage({good}, {sum})}/>
+                    </tbody>
+                </table>
             </div>
         )
     }else{
