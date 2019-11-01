@@ -2,35 +2,35 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const GetAverage = ({good}, {bad}, {sum}) => {
-    console.log(sum)
-    if(sum>0){
-        return (good-bad)/sum
-    }else{
-        return "Not defined yet, input feedback first."
-    }
+    return (good-bad)/sum
 }
 
 const GetPositivePercentage = ({good}, {sum}) => {
-    if(sum>0) {
-        return good/sum*100 + "%"
-    }else{
-        return "Not defined yet, input feedback first."
-    }
+    return good/sum*100 + "%"
 }
 
 const Statistics = ({good}, {neutral}, {bad}) => {
     const sum = good + neutral + bad
-    return (
-        <div>
-            <h1>Statistics</h1>
-            <p>Good: {good}</p>
-            <p>Neutral: {neutral}</p>
-            <p>Bad: {bad}</p>
-            <p>All: {sum}</p>
-            <p>Average: {GetAverage({good}, {bad}, {sum})}</p>
-            <p>Positive: {GetPositivePercentage({good}, {sum})}</p>
-        </div>
-    )
+    if(sum>0) {
+        return (
+            <div>
+                <h1>Statistics</h1>
+                <p>Good: {good}</p>
+                <p>Neutral: {neutral}</p>
+                <p>Bad: {bad}</p>
+                <p>All: {sum}</p>
+                <p>Average: {GetAverage({good}, {bad}, {sum})}</p>
+                <p>Positive: {GetPositivePercentage({good}, {sum})}</p>
+            </div>
+        )
+    }else{
+        return (
+            <div>
+                <h1>Statistics</h1>
+                <p>No feedback given.</p>
+            </div>
+        )
+    }
 }
 
 const App = () => {
