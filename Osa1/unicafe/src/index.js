@@ -12,10 +12,25 @@ const GetAverage = ({good}, {bad}, {sum}) => {
 
 const GetPositivePercentage = ({good}, {sum}) => {
     if(sum>0) {
-        return good/sum + "%"
+        return good/sum*100 + "%"
     }else{
         return "Not defined yet, input feedback first."
     }
+}
+
+const Statistics = ({good}, {neutral}, {bad}) => {
+    const sum = good + neutral + bad
+    return (
+        <div>
+            <h1>Statistics</h1>
+            <p>Good: {good}</p>
+            <p>Neutral: {neutral}</p>
+            <p>Bad: {bad}</p>
+            <p>All: {sum}</p>
+            <p>Average: {GetAverage({good}, {bad}, {sum})}</p>
+            <p>Positive: {GetPositivePercentage({good}, {sum})}</p>
+        </div>
+    )
 }
 
 const App = () => {
@@ -33,8 +48,6 @@ const App = () => {
         setBad(bad + 1)
     }
 
-    let sum = good + neutral + bad
-
     return (
         <div>
             <h1>Give feedback</h1>
@@ -49,13 +62,7 @@ const App = () => {
                     <button onClick={handleBadClick}>Bad</button>
                 </p>
             </div>
-            <h1>Statistics</h1>
-            <p>Good: {good}</p>
-            <p>Neutral: {neutral}</p>
-            <p>Bad: {bad}</p>
-            <p>All: {sum}</p>
-            <p>Average: {GetAverage({good}, {bad}, {sum})}</p>
-            <p>Positive: {GetPositivePercentage({good}, {sum})}</p>
+            {Statistics({good}, {neutral}, {bad})}
         </div>
     )
 }
