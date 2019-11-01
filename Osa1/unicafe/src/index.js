@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const GetAverage = ({good}, {bad}, {sum}) => {
+    console.log(sum)
+    if(sum>0){
+        return (good-bad)/sum
+    }else{
+        return "Not defined yet, input feedback first."
+    }
+}
+
+const GetPositivePercentage = ({good}, {sum}) => {
+    if(sum>0) {
+        return good/sum + "%"
+    }else{
+        return "Not defined yet, input feedback first."
+    }
+}
+
 const App = () => {
     const [good, setGood] = useState(0)
     const [neutral, setNeutral] = useState(0)
@@ -15,6 +32,8 @@ const App = () => {
     const handleBadClick = () => {
         setBad(bad + 1)
     }
+
+    let sum = good + neutral + bad
 
     return (
         <div>
@@ -34,6 +53,9 @@ const App = () => {
             <p>Good: {good}</p>
             <p>Neutral: {neutral}</p>
             <p>Bad: {bad}</p>
+            <p>All: {sum}</p>
+            <p>Average: {GetAverage({good}, {bad}, {sum})}</p>
+            <p>Positive: {GetPositivePercentage({good}, {sum})}</p>
         </div>
     )
 }
