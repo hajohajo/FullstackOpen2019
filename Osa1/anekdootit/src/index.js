@@ -11,6 +11,7 @@ const SelectAnecdote = ({setSelected}, {numberOfAnecdotes}) => {
 }
 
 const AddVote = ({selected}, {votes}, {setVotes}) => {
+
     const copy = [...votes]
     copy[selected] += 1
     setVotes(copy)
@@ -32,7 +33,7 @@ const App = (props) => {
             <p>has {votes[selected]} votes</p>
             <p>
                 <button onClick={() => SelectAnecdote({setSelected}, {numberOfAnecdotes})}>Get another anecdote</button>
-                <button onClick={() => AddVote({selected}, {votes}, {setVotes})}>Vote</button>
+                <button onClick={() => AddVote({selected},{votes}, {setVotes})}>Vote</button>
             </p>
 
         </div>
