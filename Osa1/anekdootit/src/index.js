@@ -7,17 +7,34 @@ const GetRandomIndex = (props) => {
 
 const SelectAnecdote = ({setSelected}, {numberOfAnecdotes}) => {
     const ind = GetRandomIndex({numberOfAnecdotes})
-    console.log({ind})
     setSelected(ind)
 }
+
+const AddVote = ({selected}, {votes}, {setVotes}) => {
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
+}
+
+// let votes = Array.apply(null, new Array(6)).map(Number.prototype.valueOf, 0)
+
+
 const App = (props) => {
-    const [selected, setSelected] = useState(0)
     const numberOfAnecdotes = props.anecdotes.length
+    const initVotes = Array.apply(null, new Array(6)).map(Number.prototype.valueOf, 0)
+
+    const [selected, setSelected] = useState(0)
+    const [votes, setVotes] = useState(initVotes)
 
     return (
         <div>
             <p>{props.anecdotes[selected]}</p>
-            <p><button onClick={() => SelectAnecdote({setSelected}, {numberOfAnecdotes})}>Get another anecdote</button></p>
+            <p>has {votes[selected]} votes</p>
+            <p>
+                <button onClick={() => SelectAnecdote({setSelected}, {numberOfAnecdotes})}>Get another anecdote</button>
+                <button onClick={() => AddVote({selected}, {votes}, {setVotes})}>Vote</button>
+            </p>
+
         </div>
     )
 }
