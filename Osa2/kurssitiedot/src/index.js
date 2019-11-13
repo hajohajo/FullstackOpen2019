@@ -5,7 +5,7 @@ import Course from './components/Course'
 const App = () => {
     // const parts = ['Fundamentals of React', 'Using props to pass data', 'State of a component']
     // const exercises = [10, 7, 14]
-    const course = {
+    const courses = [{
         name: 'Half Stack application development',
         parts: [
             {
@@ -24,14 +24,25 @@ const App = () => {
                 exercises: 14,
                 id: 3
             }
-        ]
+        ],
+        id: 1
+    },
+    {
+        name: 'Node.js',
+        parts: [
+            {
+                name: 'Routing',
+                exercises: 3,
+                id: 1
+            }
+        ],
+        id: 2
     }
 
-    return (
-        <div>
-            <Course course={course}/>
-        </div>
+    ]
 
+    return (
+        courses.map(course => <Course key={course.id} course={course}>placeholder</Course>)
     )
 }
 
