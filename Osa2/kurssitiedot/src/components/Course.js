@@ -1,16 +1,11 @@
 import React from 'react'
 
-// const Total = (props) => {
-//     return (
-//         <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-//     )
-// }
-
 const Course = ({course}) => {
     return (
         <div>
             <Header course={course.name}/>
             <Content parts={course.parts}/>
+            <Total parts={course.parts}/>
         </div>
     )
 }
@@ -36,6 +31,13 @@ const Part = (props) => {
         <div>
             <p>{props.part} {props.exercises}</p>
         </div>
+    )
+}
+
+const Total = ({parts}) => {
+    const total = parts.map(part => part.exercises).reduce((sum, value) => sum + value)
+    return (
+        <p>Number of exercises {total}</p>
     )
 }
 
