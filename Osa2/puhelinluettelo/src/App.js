@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 
 const App = () => {
     const [persons, setPersons] = useState([
-        {name: 'Arto Hellas', number: '+358401234567', id: 1}
+        {name: 'Arto Hellas', number: '+358401234567', id: 1},
+        {name: 'Ada Lovelace', number: '050-99953205', id:2},
+        {name: 'Joona Havukainen', number: '04043202223', id:3}
     ])
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+    const [filterCondition, setNewFilter] = useState('')
 
     const handleNewName = (event) => {
         console.log(event.target.value)
@@ -16,6 +19,11 @@ const App = () => {
     const handleNewNumber = (event) => {
         console.log(event.target.value)
         setNewNumber(event.target.value)
+    }
+
+    const handleFilterCondition = (event) => {
+        console.log(event.target.value)
+        setNewFilter(event.target.value)
     }
 
 
@@ -37,16 +45,23 @@ const App = () => {
         }
     }
 
+
+    var filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filterCondition.toLowerCase()))
+
     return (
         <div>
             {/*<div>debug: {persons.map(person => (person.name))}</div>*/}
-            <h2>Phonebook</h2>
+            <h1>Phonebook</h1>
+            <div>
+                Filter shown persons with: <input value={filterCondition} onChange={handleFilterCondition}/>
+            </div>
+            <h2>Add new person</h2>
             <form onSubmit={addPerson}>
                 <div>
-                    name: <input value={newName} onChange={handleNewName}/>
+                    Name: <input value={newName} onChange={handleNewName}/>
                 </div>
                 <div>
-                    number: <input value={newNumber} onChange={handleNewNumber}/>
+                    Number: <input value={newNumber} onChange={handleNewNumber}/>
                 </div>
                 <div>
                     <button type="submit">add</button>
@@ -54,7 +69,7 @@ const App = () => {
             </form>
             <h2>Numbers</h2>
 
-            {persons.map(person => <p key={person.id}>{person.name}, {person.number}</p>)}
+            {filteredPersons.map(person => <p key={person.id}>{person.name}, {person.number}</p>)}
         </div>
     )
 }
