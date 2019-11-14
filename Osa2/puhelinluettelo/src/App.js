@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -35,41 +38,30 @@ const App = () => {
                 number: newNumber,
                 id: persons.length+1
             }
-            console.log({newName})
             setPersons(persons.concat(personObject))
             setNewName('')
             setNewNumber('')
-            console.log({persons})
         }else{
             window.alert(`${newName} is already added to phonebook`)
         }
     }
 
-
-    var filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filterCondition.toLowerCase()))
+    const personObject = () => {
+        return(
+            {name: newName,
+           number: newNumber,
+           id: persons.length+1}
+        )
+    }
 
     return (
         <div>
-            {/*<div>debug: {persons.map(person => (person.name))}</div>*/}
             <h1>Phonebook</h1>
-            <div>
-                Filter shown persons with: <input value={filterCondition} onChange={handleFilterCondition}/>
-            </div>
+            <Filter filterCondition={filterCondition} handleFilterCondition={handleFilterCondition} />
             <h2>Add new person</h2>
-            <form onSubmit={addPerson}>
-                <div>
-                    Name: <input value={newName} onChange={handleNewName}/>
-                </div>
-                <div>
-                    Number: <input value={newNumber} onChange={handleNewNumber}/>
-                </div>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-            </form>
+            <PersonForm newPerson={personObject()} handleNewName={handleNewName} handleNewNumber={handleNewNumber} addPerson={addPerson}/>
             <h2>Numbers</h2>
-
-            {filteredPersons.map(person => <p key={person.id}>{person.name}, {person.number}</p>)}
+            <Persons personList={persons} filterCondition={filterCondition}/>
         </div>
     )
 }
