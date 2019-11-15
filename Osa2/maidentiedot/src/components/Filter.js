@@ -11,7 +11,9 @@ const Filter = (props) => {
         )
     }else if(filteredCountries.length>1) {
         return (
-            filteredCountries.map(country => <div key={country.name}>{country.name}</div>)
+            filteredCountries.map(country => <div key={country.name}>
+                    {country.name}<button value={country.name} onClick={props.handleClick}>show</button>
+            </div>)
         )
     }else if(filteredCountries.length===1) {
         let country = filteredCountries[0]

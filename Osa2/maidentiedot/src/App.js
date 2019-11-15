@@ -20,14 +20,13 @@ const App = () => {
         setFilterCondition(event.target.value)
     }
 
-
     return (
         <div>
             <div>
                 <input value={filterCondition} onChange={handleFilterChange} />
             </div>
             <div>
-                <Filter countries={countries} filterCondition={filterCondition}>Placeholder</Filter>
+                <Filter countries={countries} filterCondition={filterCondition} handleClick={handleFilterChange}>Placeholder</Filter>
             </div>
         </div>
 
