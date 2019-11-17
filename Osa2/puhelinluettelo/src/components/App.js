@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Filter from './components/Filter'
-import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
-import personService from './services/persons'
+import Filter from './Filter'
+import PersonForm from './PersonForm'
+import Persons from './Persons'
+import personService from '../services/persons'
 
 
 const App = () => {
@@ -57,6 +57,18 @@ const App = () => {
         }
     }
 
+    const removePerson = id =>  {
+        if(window.confirm(`Really remove ${persons[id-1].name}`)) {
+            personService
+                .remove(id)
+                .then( () => {
+                    personService
+                        .getAll()
+                        .then(returnedPersons => setPersons(returnedPersons))
+                })
+        }
+    }
+
     const personObject = () => {
         return(
             {name: newName,
@@ -72,7 +84,7 @@ const App = () => {
             <h2>Add new person</h2>
             <PersonForm newPerson={personObject()} handleNewName={handleNewName} handleNewNumber={handleNewNumber} addPerson={addPerson}/>
             <h2>Numbers</h2>
-            <Persons personList={persons} filterCondition={filterCondition}/>
+            <Persons personList={persons} filterCondition={filterCondition} removePerson={removePerson}/>
         </div>
     )
 }
