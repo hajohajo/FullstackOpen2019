@@ -1,7 +1,24 @@
 {
-  "persons":[
-    {"name": "Arto Hellas", "number": "+358401234567", "id": 1},
-    {"name": "Ada Lovelace", "number": "050-99953205", "id": 2},
-    {"name": "Joona Havukainen", "number": "04043202223", "id": 3}
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "+358401234567",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "050-99953205",
+      "id": 2
+    },
+    {
+      "name": "Joona Havukainen",
+      "number": "04043202223",
+      "id": 3
+    },
+    {
+      "name": "Mikko Meikäläinen",
+      "number": "1234560101",
+      "id": 4
+    }
   ]
 }
