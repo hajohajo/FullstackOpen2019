@@ -3,6 +3,7 @@ import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
 import personService from '../services/persons'
+import Notification from './Notification'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const [filterCondition, setNewFilter] = useState('')
+    const [notificationMessage, setNotificationMessage] = useState('Some error happened...')
 
     useEffect(() => {
         personService
@@ -51,6 +53,10 @@ const App = () => {
                     setPersons(persons.concat(returnedPersons))
                     setNewName('')
                     setNewNumber('')
+                    setNotificationMessage(`Added ${returnedPersons.name}`)
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 5000)
                 })
         }else{
             if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
@@ -62,19 +68,31 @@ const App = () => {
                         setPersons(persons.map(person => person.id !== changedPerson.id ? person : returnedPerson))
                         setNewName('')
                         setNewNumber('')
+                        setNotificationMessage(`Changed ${person.name}'s number`)
+                        setTimeout(() => {
+                            setNotificationMessage(null)
+                        }, 5000)
+
                     })
             }
         }
     }
 
     const removePerson = id =>  {
-        if(window.confirm(`Really remove ${persons[id-1].name}`)) {
+        const person = persons.find(person => person.id === id)
+        if(window.confirm(`Really remove ${person.name}`)) {
             personService
                 .remove(id)
                 .then( () => {
                     personService
                         .getAll()
-                        .then(returnedPersons => setPersons(returnedPersons))
+                        .then(returnedPersons => {setPersons(returnedPersons)}
+                )
+                    setNotificationMessage(`Removed ${person.name}`)
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 5000)
+
                 })
         }
     }
@@ -90,6 +108,7 @@ const App = () => {
     return (
         <div>
             <h1>Phonebook</h1>
+            <Notification message={notificationMessage}/>
             <Filter filterCondition={filterCondition} handleFilterCondition={handleFilterCondition} />
             <h2>Add new person</h2>
             <PersonForm newPerson={personObject()} handleNewName={handleNewName} handleNewNumber={handleNewNumber} addPerson={addPerson}/>
